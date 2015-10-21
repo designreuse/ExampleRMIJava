@@ -39,7 +39,13 @@ public class RMISquareRootServer extends UnicastRemoteObject
   try
   {
    ISquareRoot server = new RMISquareRootServer();
-   Naming.rebind("//192.168.43.185/RMISquareRoot",server);
+         try {
+             Naming.rebind("//"+NetUtils.getInstance().getHostAddress()+"/RMISquareRoot",server);
+         } catch (UnknownHostException ex) {
+             Logger.getLogger(RMISquareRootServer.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (SocketException ex) {
+             Logger.getLogger(RMISquareRootServer.class.getName()).log(Level.SEVERE, null, ex);
+         }
   }
   catch (RemoteException e){e.printStackTrace( );}
   catch (MalformedURLException e) {e.printStackTrace( );}

@@ -8,6 +8,10 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.net.MalformedURLException;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RMISquareRootClient
 {
@@ -16,8 +20,14 @@ public class RMISquareRootClient
 
   try
   {
-   ISquareRoot squareServer =
-      (ISquareRoot) Naming.lookup ("rmi://192.168.43.185/RMISquareRoot");
+   ISquareRoot squareServer = null;
+      try {
+          squareServer = (ISquareRoot) Naming.lookup ("rmi://"+NetUtils.getInstance().getHostAddress()+"/RMISquareRoot");
+      } catch (UnknownHostException ex) {
+          Logger.getLogger(RMISquareRootClient.class.getName()).log(Level.SEVERE, null, ex);
+      } catch (SocketException ex) {
+          Logger.getLogger(RMISquareRootClient.class.getName()).log(Level.SEVERE, null, ex);
+      }
 
    double result = squareServer.calculateSquareRoot(x) ;
    System.out.println(result);
