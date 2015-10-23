@@ -1,3 +1,5 @@
+package battleship.network;
+
 
 import java.net.*;
 import java.util.Enumeration;

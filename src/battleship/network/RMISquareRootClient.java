@@ -1,3 +1,5 @@
+package battleship.network;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -16,18 +18,14 @@ import java.util.logging.Logger;
 public class RMISquareRootClient
 {
  public static void main(String[] args) {
-  int x = Integer.parseInt(args[0]);
-
+     
+  String IP_SERVER = args[0];
+  int x = Integer.parseInt(args[1]);
+  
   try
   {
    ISquareRoot squareServer = null;
-      try {
-          squareServer = (ISquareRoot) Naming.lookup ("rmi://"+NetUtils.getInstance().getHostAddress()+"/RMISquareRoot");
-      } catch (UnknownHostException ex) {
-          Logger.getLogger(RMISquareRootClient.class.getName()).log(Level.SEVERE, null, ex);
-      } catch (SocketException ex) {
-          Logger.getLogger(RMISquareRootClient.class.getName()).log(Level.SEVERE, null, ex);
-      }
+   squareServer = (ISquareRoot) Naming.lookup ("rmi://"+IP_SERVER+"/RMISquareRoot");
 
    double result = squareServer.calculateSquareRoot(x) ;
    System.out.println(result);

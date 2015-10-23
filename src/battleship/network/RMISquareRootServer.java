@@ -1,3 +1,5 @@
+package battleship.network;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -39,15 +41,18 @@ public class RMISquareRootServer extends UnicastRemoteObject
   try
   {
    ISquareRoot server = new RMISquareRootServer();
-         try {
-             Naming.rebind("//"+NetUtils.getInstance().getHostAddress()+"/RMISquareRoot",server);
-         } catch (UnknownHostException ex) {
-             Logger.getLogger(RMISquareRootServer.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (SocketException ex) {
-             Logger.getLogger(RMISquareRootServer.class.getName()).log(Level.SEVERE, null, ex);
-         }
+        try {
+       try {
+           Naming.rebind("//"+NetUtils.getInstance().getHostAddress()+"/RMISquareRoot",server);
+       } catch (MalformedURLException ex) {
+           Logger.getLogger(RMISquareRootServer.class.getName()).log(Level.SEVERE, null, ex);
+       }
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(RMISquareRootServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SocketException ex) {
+            Logger.getLogger(RMISquareRootServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
   }
   catch (RemoteException e){e.printStackTrace( );}
-  catch (MalformedURLException e) {e.printStackTrace( );}
  }
 } 
