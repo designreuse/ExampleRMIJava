@@ -29,7 +29,6 @@ public class RMISquareRootClient
   {
    ISquareRoot squareServer = null;
    //squareServer = (ISquareRoot) Naming.lookup ("rmi://"+IP_SERVER+"/RMISquareRoot");
-   System.setProperty("java.rmi.server.hostname", IP_SERVER);
    Registry register = LocateRegistry.getRegistry(IP_SERVER);
    squareServer = (ISquareRoot) register.lookup("RMISquareRoot");
    

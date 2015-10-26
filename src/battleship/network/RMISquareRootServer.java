@@ -38,7 +38,9 @@ public class RMISquareRootServer extends UnicastRemoteObject
  public static void main(String[] args) throws UnknownHostException, SocketException, RemoteException, AlreadyBoundException
  {
     ISquareRoot server = new RMISquareRootServer();
-    System.setProperty("java.rmi.server.hostname",NetUtils.getInstance().getHostAddress());
+    String ipserver = NetUtils.getInstance().getHostAddress();
+    System.out.println("Server IP : "+ipserver+"  in ascolto...");
+    System.setProperty("java.rmi.server.hostname", ipserver);
     System.setProperty("java.rmi.disableHttp","true");
     
     Registry registry1 = LocateRegistry.getRegistry();
