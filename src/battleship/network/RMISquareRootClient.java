@@ -23,12 +23,13 @@ public class RMISquareRootClient
      
   String IP_SERVER = args[0];
   int x = Integer.parseInt(args[1]);
+  System.out.println("avvio richiesta del client");
   
   try
   {
    ISquareRoot squareServer = null;
    //squareServer = (ISquareRoot) Naming.lookup ("rmi://"+IP_SERVER+"/RMISquareRoot");
-   
+   System.setProperty("java.rmi.server.hostname", IP_SERVER);
    Registry register = LocateRegistry.getRegistry(IP_SERVER);
    squareServer = (ISquareRoot) register.lookup("RMISquareRoot");
    

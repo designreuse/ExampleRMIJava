@@ -9,9 +9,12 @@ package battleship.network;
 import java.net.MalformedURLException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.rmi.AlreadyBoundException;
 import java.rmi.server.UnicastRemoteObject;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,6 +22,9 @@ import java.util.logging.Logger;
 public class RMISquareRootServer extends UnicastRemoteObject
   implements ISquareRoot
 {
+    
+    private Registry registry;
+    
  public RMISquareRootServer()throws RemoteException
  {
   
@@ -29,8 +35,17 @@ public class RMISquareRootServer extends UnicastRemoteObject
   return Math.sqrt( aNumber);
  }
  
- public static void main(String[] args)
+ public static void main(String[] args) throws UnknownHostException, SocketException, RemoteException, AlreadyBoundException
  {
+    ISquareRoot server = new RMISquareRootServer();
+    System.setProperty("java.rmi.server.hostname",NetUtils.getInstance().getHostAddress());
+    System.setProperty("java.rmi.disableHttp","true");
+    
+    Registry registry1 = LocateRegistry.getRegistry();
+    registry1.bind("RMISquareRoot", server);
+    
+    /*
+    
      try {
          System.out.println("IP della macchina server:"+NetUtils.getInstance().getHostAddress());
      } catch (UnknownHostException ex) {
@@ -54,5 +69,6 @@ public class RMISquareRootServer extends UnicastRemoteObject
         }
   }
   catch (RemoteException e){e.printStackTrace( );}
+            */
  }
 } 
