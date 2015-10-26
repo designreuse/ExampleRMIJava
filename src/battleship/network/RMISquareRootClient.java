@@ -12,6 +12,8 @@ import java.rmi.RemoteException;
 import java.net.MalformedURLException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,8 +27,11 @@ public class RMISquareRootClient
   try
   {
    ISquareRoot squareServer = null;
-   squareServer = (ISquareRoot) Naming.lookup ("rmi://"+IP_SERVER+"/RMISquareRoot");
-
+   //squareServer = (ISquareRoot) Naming.lookup ("rmi://"+IP_SERVER+"/RMISquareRoot");
+   
+   Registry register = LocateRegistry.getRegistry(IP_SERVER);
+   squareServer = (ISquareRoot) register.lookup("RMISquareRoot");
+   
    double result = squareServer.calculateSquareRoot(x) ;
    System.out.println(result);
   }
@@ -35,10 +40,6 @@ public class RMISquareRootClient
    e.printStackTrace( );
   }
   catch(RemoteException e)
-  {
-   e.printStackTrace( );
-  }
-  catch(MalformedURLException e)
   {
    e.printStackTrace( );
   }
