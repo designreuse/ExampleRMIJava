@@ -29,7 +29,7 @@ public class RMISquareRootClient
   {
    ISquareRoot squareServer = null;
    //squareServer = (ISquareRoot) Naming.lookup ("rmi://"+IP_SERVER+"/RMISquareRoot");
-   Registry register = LocateRegistry.getRegistry(IP_SERVER);
+   Registry register = LocateRegistry.getRegistry(IP_SERVER, 1234);
    squareServer = (ISquareRoot) register.lookup("RMISquareRoot");
    
    double result = squareServer.calculateSquareRoot(x) ;

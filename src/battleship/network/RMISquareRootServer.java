@@ -37,40 +37,15 @@ public class RMISquareRootServer extends UnicastRemoteObject
  
  public static void main(String[] args) throws UnknownHostException, SocketException, RemoteException, AlreadyBoundException
  {
-    ISquareRoot server = new RMISquareRootServer();
+    
     String ipserver = NetUtils.getInstance().getHostAddress();
     System.out.println("Server IP : "+ipserver+"  in ascolto...");
     System.setProperty("java.rmi.server.hostname", ipserver);
     System.setProperty("java.rmi.disableHttp","true");
-    
-    Registry registry1 = LocateRegistry.getRegistry();
+    ISquareRoot server = new RMISquareRootServer();
+    //Registry registry1 = LocateRegistry.getRegistry();
+    Registry registry1 = LocateRegistry.createRegistry(1234);
     registry1.bind("RMISquareRoot", server);
     
-    /*
-    
-     try {
-         System.out.println("IP della macchina server:"+NetUtils.getInstance().getHostAddress());
-     } catch (UnknownHostException ex) {
-         Logger.getLogger(RMISquareRootServer.class.getName()).log(Level.SEVERE, null, ex);
-     } catch (SocketException ex) {
-         Logger.getLogger(RMISquareRootServer.class.getName()).log(Level.SEVERE, null, ex);
-     }
-  try
-  {
-   ISquareRoot server = new RMISquareRootServer();
-        try {
-       try {
-           Naming.rebind("//"+NetUtils.getInstance().getHostAddress()+"/RMISquareRoot",server);
-       } catch (MalformedURLException ex) {
-           Logger.getLogger(RMISquareRootServer.class.getName()).log(Level.SEVERE, null, ex);
-       }
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(RMISquareRootServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SocketException ex) {
-            Logger.getLogger(RMISquareRootServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-  }
-  catch (RemoteException e){e.printStackTrace( );}
-            */
  }
 } 
