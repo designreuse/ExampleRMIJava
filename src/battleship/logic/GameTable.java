@@ -4,17 +4,13 @@
  * and open the template in the editor.
  */
 package battleship.logic;
-
+import battleship.configurations.Parameters;
 /**
  * @author andrea
  * @class GameTable
  */
 public class GameTable {
     
-    /* Tabella di gioco relativa alla posizione/situazione delle proprie navi */
-    private static final String TYPE_POSITION_SHIPS = "TYPE_POSITION_SHIPS";
-    /* Tabella di gioco relativa alla posizione/situazione dei colpi già sparati dai players */
-    private static final String TYPE_POSITION_SHOTS = "TYPE_POSITION_SHOTS";
     /* Lunghezza della tabella/matrice che sarà in base a quanti players partecipano */
     private int size;
     /* Matrice con i flag della situazione di gioco */
@@ -25,7 +21,7 @@ public class GameTable {
     public GameTable(int size, String t){
         this.size = size;
         this.matrix = new int[this.size][this.size];
-        if(t.equals(TYPE_POSITION_SHIPS) || t.equals(TYPE_POSITION_SHOTS))
+        if(t.equals(Parameters.TYPE_POSITION_SHIPS) || t.equals(Parameters.TYPE_POSITION_SHOTS))
             this.type = t;
         //else
             //rilancia eccezione mia personale

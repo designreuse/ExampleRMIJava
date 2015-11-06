@@ -20,32 +20,33 @@ import java.util.logging.Logger;
 
 
 public class RMISquareRootServer extends UnicastRemoteObject
-  implements ISquareRoot
-{
-    
+        implements ISquareRoot {
+
     private Registry registry;
+
+    public RMISquareRootServer() throws RemoteException {
+
+    }
+
+    public double calculateSquareRoot(double aNumber) {
+        return Math.sqrt(aNumber);
+    }
     
- public RMISquareRootServer()throws RemoteException
- {
-  
- }
- 
- public double calculateSquareRoot(double aNumber)
- {
-  return Math.sqrt( aNumber);
- }
- 
- public static void main(String[] args) throws UnknownHostException, SocketException, RemoteException, AlreadyBoundException
- {
+    public double calculatePowerTwo(double aNumber) {
+        return (aNumber*aNumber);
+    }
     
-    String ipserver = NetUtils.getInstance().getHostAddress();
-    System.out.println("Server IP : "+ipserver+"  in ascolto...");
-    System.setProperty("java.rmi.server.hostname", ipserver);
-    System.setProperty("java.rmi.disableHttp","true");
-    ISquareRoot server = new RMISquareRootServer();
-    //Registry registry1 = LocateRegistry.getRegistry();
-    Registry registry1 = LocateRegistry.createRegistry(1234);
-    registry1.bind("RMISquareRoot", server);
-    
- }
-} 
+    public static void main(String[] args) throws UnknownHostException, SocketException, RemoteException, AlreadyBoundException {
+        
+        int PORT = Integer.parseInt(args[0]);
+        String ipserver = NetUtils.getInstance().getHostAddress();
+        System.out.println("Server IP : " + ipserver + "  in ascolto sulla porta "+PORT+"....");
+        System.setProperty("java.rmi.server.hostname", ipserver);
+        System.setProperty("java.rmi.disableHttp", "true");
+        ISquareRoot server = new RMISquareRootServer();
+        //Registry registry1 = LocateRegistry.getRegistry();
+        Registry registry1 = LocateRegistry.createRegistry(PORT);
+        registry1.bind("RMISquareRoot", server);
+
+    }
+}
